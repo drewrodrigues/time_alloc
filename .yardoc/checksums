@@ -1,0 +1,4 @@
+lib/clock.rb dbbf3e457890fb64ee91cb393b1ed2eb235420a2
+lib/event.rb 0565c9294cf6c3e8f7fece7684b3ebf8dccc6f69
+lib/calendar.rb fe207d5a36ac018fac8faf2ad8f2040cef18da22
+lib/modules/idable.rb 4ec6eee28ebe10456374be33bb90e34913f6ef7d

@@ -3,6 +3,8 @@
 # all starting from 0
 # assumes class has a id property
 
+# TODO: write documentation
+# TODO: cleanup class methods and instance methods with klass include?
 module IDable
   attr_reader :id
 
@@ -10,7 +12,8 @@ module IDable
   @@next_id = @@instances.last ? @@instances.last.id + 1 : 0
 
   def initialize
-    super
+    # TODO: review how module intiailize method gets mixed in,
+    # what order are they called. Stack overflow said to call it from the class to get it called
     assign_id
     @@instances << self
   end
@@ -19,11 +22,11 @@ module IDable
     @id = IDable.assign_next_id
   end
 
-  def all # TODO: make class methods
+  def self.all
     @@instances
   end
 
-  def count # TODO: make class methods
+  def count
     @@instances.count
   end
 

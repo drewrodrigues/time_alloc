@@ -20,16 +20,22 @@ RSpec.describe Event do
       expect(event.title).to_not be nil
     end
 
-    it "available defaults to true" do
-      event = Event.new(4, 5)
-
-      expect(event.available).to be true
-    end
-
     it "validates start_time < end_time" do
       expect {
         Event.new(5, 2, "Something")
       }.to raise_error ArgumentError, "Start time must be before end time"
+    end
+
+    it "validates start_time != end_time" do
+      expect {
+        Event.new(5, 5)
+      }.to raise_error ArgumentError, "Start time must be before end time"
+    end
+
+    it "doesn't allow minutes over 59" do
+      expect {
+        Event.new(5.1, 5.60)
+      }.to raise_error ArgumentError, "Minutes must be between 0-59"
     end
   end
 
@@ -50,4 +56,43 @@ RSpec.describe Event do
       end
     end
   end
+
+  describe "#collides_with?" do
+    context "when start_time between another events start & end time" do
+      it "returns true" do
+        event = Event.new(4, 5)
+        colliding_event = Event.new(4.3, 6)
+
+        expect(colliding_event.collides_with?(event)).to be true
+      end
+    end
+
+    context "when end_time between another events start & end time" do
+      it "returns true" do
+        event = Event.new(4, 5)
+        colliding_event = Event.new(3, 4.3)
+
+        expect(colliding_event.collides_with?(event)).to be true
+      end
+    end
+
+    context "when start & end time don't collide with other event" do
+      it "returns false" do
+        event = Event.new(4, 5)
+        other_event = Event.new(5, 6)
+
+        expect(other_event.collides_with?(event)).to be false 
+      end
+    end
+
+    context "when both events have the same start and end time" do
+      it "returns true" do
+        event = Event.new(4, 5)
+        other_event = Event.new(4, 5)
+
+        expect(other_event.collides_with?(event)).to be true
+      end
+    end
+  end
 end
+
