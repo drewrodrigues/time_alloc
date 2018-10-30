@@ -35,7 +35,7 @@ class Calendar
     minutes_in_day - used_time 
   end
 
-  def to_s
+  def display 
     @events.sort_by {|e| e.start_time}.each {|e| puts e}
   end
 

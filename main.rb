@@ -10,10 +10,11 @@ class Main
   end
 
   def run
-    prompt
-    puts @calendar
-    input = gets.chomp
+    system "clear"
+    @calendar.display
+    input = prompt 
     
+    puts "\n\n"
     case input
     when "1"
       add_event
@@ -23,7 +24,6 @@ class Main
       puts "Bad input: press <enter> to continue"
       gets
     end
-
   end
 
   private
@@ -36,21 +36,31 @@ class Main
     end_time = gets.chomp.to_f
     print "Title: "
     title = gets.chomp
-    event = Event.new(start_time, end_time, title)
 
-    @calendar.add_event(event)
+    begin
+      event = Event.new(start_time, end_time, title)
+      @calendar.add_event(event)
+      puts "Event successfully added!"
+      puts "Event couldn't be added"
+    rescue ArgumentError => e # TODO: implement validation error, to specifically rescue those
+      puts e
+      gets
+    end
   end
 
   def remove_event
     print "ID of event: "
     id = gets.chomp.to_i
 
-    @calendar.remove_event(id)
+    @calendar.remove_event(id) # TODO: explicitly rescue validation errors
   end
 
   def prompt
+    puts "\n\n"
+    puts "*" * 20
     puts "<1> Add event"
     puts "<2> Delete event"
+    gets.chomp
   end
 end
 

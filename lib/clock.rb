@@ -1,6 +1,10 @@
 # Contain hours and minutes without accounting for seconds to create a simple
 # interface to add, substract and compare. Also, easily increment minutes
 # without having to manually calculate seconds to minute conversions.
+
+# TODO: implement AM/PM view option
+# TODO: implement AM/PM input (parse the input differently if it has those arguments
+
 class Clock
   include Comparable 
 
