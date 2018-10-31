@@ -76,7 +76,7 @@
   
   <dl>
     <dt>Included in:</dt>
-    <dd><span class='object_link'><a href="Event.html" title="Event (class)">Event</a></span></dd>
+    <dd><span class='object_link'><a href="Category.html" title="Category (class)">Category</a></span>, <span class='object_link'><a href="Event.html" title="Event (class)">Event</a></span></dd>
   </dl>
   
 
@@ -187,7 +187,10 @@ with klass include?</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>FIXME: make a class method FIXME: right now it adds all classes to the same
+instance returns all instances of the class.</p>
+</div></span>
   
 </li>
 
@@ -226,6 +229,30 @@ with klass include?</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#count-instance_method" title="#count (instance method)">#<strong>count</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>instances count.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>  &#x21d2; Object </a>
     
 
@@ -240,7 +267,9 @@ with klass include?</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>assigns next ID to class and adds instance to @@instances collection.</p>
+</div></span>
   
 </li>
 
@@ -311,18 +340,30 @@ with klass include?</p>
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>FIXME: make a class method FIXME: right now it adds all classes to the same
+instance returns all instances of the class</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-25
-26
-27</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/modules/idable.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/modules/idable.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
   <span class='cvar'>@@instances</span>
@@ -353,15 +394,56 @@ with klass include?</p>
       <pre class="lines">
 
 
-21
-22
-23</pre>
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/modules/idable.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/modules/idable.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_assign_id'>assign_id</span> 
   <span class='ivar'>@id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="IDable (module)">IDable</a></span></span><span class='period'>.</span><span class='id identifier rubyid_assign_next_id'>assign_next_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="count-instance_method">
+  
+    #<strong>count</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>instances count</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/modules/idable.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_count'>count</span>
+  <span class='cvar'>@@instances</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -377,21 +459,32 @@ with klass include?</p>
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>assigns next ID to class and adds instance to @@instances collection</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-14
 15
 16
 17
 18
-19</pre>
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/modules/idable.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/modules/idable.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='comment'># TODO: review how module intiailize method gets mixed in,
@@ -409,7 +502,7 @@ with klass include?</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 29 18:28:40 2018 by
+  Generated on Wed Oct 31 13:28:41 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.16 (ruby-2.3.1).
 </div>

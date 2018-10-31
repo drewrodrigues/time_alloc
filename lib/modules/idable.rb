@@ -11,6 +11,7 @@ module IDable
   @@instances = []
   @@next_id = @@instances.last ? @@instances.last.id + 1 : 0
 
+  # assigns next ID to class and adds instance to @@instances collection
   def initialize
     # TODO: review how module intiailize method gets mixed in,
     # what order are they called. Stack overflow said to call it from the class to get it called
@@ -26,6 +27,7 @@ module IDable
     @@instances
   end
 
+  # instances count
   def count
     @@instances.count
   end

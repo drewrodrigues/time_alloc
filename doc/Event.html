@@ -236,6 +236,30 @@ spans from 4:30 to 5:30.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#==-instance_method" title="#== (instance method)">#<strong>==</strong>(other)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Checks to see if hours and time are equal.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#collides_with%3F-instance_method" title="#collides_with? (instance method)">#<strong>collides_with?</strong>(event)  &#x21d2; Boolean </a>
     
 
@@ -346,7 +370,7 @@ events start &amp; end time (exclusive range).</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="IDable.html" title="IDable (module)">IDable</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="IDable.html#all-class_method" title="IDable.all (method)">all</a></span>, <span class='object_link'><a href="IDable.html#assign_id-instance_method" title="IDable#assign_id (method)">#assign_id</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="IDable.html#all-class_method" title="IDable.all (method)">all</a></span>, <span class='object_link'><a href="IDable.html#assign_id-instance_method" title="IDable#assign_id (method)">#assign_id</a></span>, <span class='object_link'><a href="IDable.html#count-instance_method" title="IDable#count (method)">#count</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -595,7 +619,48 @@ events start &amp; end time (exclusive range).</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="collides_with?-instance_method">
+  <h3 class="signature first" id="==-instance_method">
+  
+    #<strong>==</strong>(other)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Checks to see if hours and time are equal</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/event.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='op'>==</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_start_time'>start_time</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_end_time'>end_time</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_end_time'>end_time</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="collides_with?-instance_method">
   
     #<strong>collides_with?</strong>(event)  &#x21d2; <tt>Boolean</tt> 
   
@@ -662,12 +727,14 @@ end time</p>
 
 43
 44
-45</pre>
+45
+46</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/event.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collides_with?'>collides_with?</span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='kw'>self</span> <span class='op'>==</span> <span class='id identifier rubyid_event'>event</span>
   <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_start_time'>start_time</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_end_time'>end_time</span> <span class='op'>||</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_end_time'>end_time</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_start_time'>start_time</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_event'>event</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_end_time'>end_time</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -800,7 +867,7 @@ end time</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 29 18:28:40 2018 by
+  Generated on Wed Oct 31 13:28:41 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.16 (ruby-2.3.1).
 </div>

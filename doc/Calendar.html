@@ -102,10 +102,8 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>TODO: add event collision detection (return false when can&#39;t add)
-Calendar is a container class to hold events. It handles adding and
-deleting events, as well as calculating available time to create more
-events from.</p>
+<p>TODO: write automatic methods that reallocate_times and available_time
+slots on certain actions</p>
 
 
   </div>
@@ -165,7 +163,7 @@ events from.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#add_event-instance_method" title="#add_event (instance method)">#<strong>add_event</strong>(event)  &#x21d2; Object </a>
+      <a href="#add_category-instance_method" title="#add_category (instance method)">#<strong>add_category</strong>(category)  &#x21d2; Object </a>
     
 
     
@@ -187,7 +185,7 @@ events from.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#available_time-instance_method" title="#available_time (instance method)">#<strong>available_time</strong>  &#x21d2; Integer </a>
+      <a href="#add_event-instance_method" title="#add_event (instance method)">#<strong>add_event</strong>(event)  &#x21d2; Object </a>
     
 
     
@@ -202,7 +200,103 @@ events from.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Minutes left over after non-available time deducted from day.</p>
+<p>TODO: support adding multiple events.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#available_time-instance_method" title="#available_time (instance method)">#<strong>available_time</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>TODO: write specs.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#available_time_slots-instance_method" title="#available_time_slots (instance method)">#<strong>available_time_slots</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>TODO: finish writing specs TODO: write documentation.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#category_count-instance_method" title="#category_count (instance method)">#<strong>category_count</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Number of categories.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#display-instance_method" title="#display (instance method)">#<strong>display</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>show events ordered by start_time.</p>
 </div></span>
   
 </li>
@@ -274,7 +368,31 @@ events from.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A new instance of Calendar.</p>
+<p>setup events to hold.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove_category-instance_method" title="#remove_category (instance method)">#<strong>remove_category</strong>(id)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>TODO: write documentation.</p>
 </div></span>
   
 </li>
@@ -302,30 +420,6 @@ events from.</p>
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#to_s-instance_method" title="#to_s (instance method)">#<strong>to_s</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>TODO: print by start_time.</p>
-</div></span>
-  
-</li>
-
-      
     </ul>
   
 
@@ -344,7 +438,7 @@ events from.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of Calendar</p>
+<p>setup events to hold</p>
 
 
   </div>
@@ -358,15 +452,17 @@ events from.</p>
       <pre class="lines">
 
 
-8
-9
-10</pre>
+11
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@events</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@categories</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -406,12 +502,12 @@ events from.</p>
       <pre class="lines">
 
 
-6
-7
-8</pre>
+8
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_events'>events</span>
   <span class='ivar'>@events</span>
@@ -429,7 +525,70 @@ events from.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="add_event-instance_method">
+  <h3 class="signature first" id="add_category-instance_method">
+  
+    #<strong>add_category</strong>(category)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>category</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Category.html" title="Category (class)">Category</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>to be added</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+65
+66
+67
+68
+69</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 65</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_category'>add_category</span><span class='lparen'>(</span><span class='id identifier rubyid_category'>category</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_can_add_category?'>can_add_category?</span><span class='lparen'>(</span><span class='id identifier rubyid_category'>category</span><span class='rparen'>)</span>
+  <span class='ivar'>@categories</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_category'>category</span>
+  <span class='id identifier rubyid_reallocate_times'>reallocate_times</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="add_event-instance_method">
   
     #<strong>add_event</strong>(event)  &#x21d2; <tt>Object</tt> 
   
@@ -440,6 +599,8 @@ events from.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>TODO: support adding multiple events</p>
+
 
   </div>
 </div>
@@ -472,16 +633,20 @@ events from.</p>
       <pre class="lines">
 
 
-13
-14
-15</pre>
+18
+19
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_event'>add_event</span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_can_add_event?'>can_add_event?</span><span class='lparen'>(</span><span class='id identifier rubyid_event'>event</span><span class='rparen'>)</span>
   <span class='ivar'>@events</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_event'>event</span>
-<span class='kw'>end</span></pre>
+  <span class='id identifier rubyid_reallocate_times'>reallocate_times</span> <span class='comment'># TODO: remove duplication
+</span><span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -490,7 +655,7 @@ events from.</p>
       <div class="method_details ">
   <h3 class="signature " id="available_time-instance_method">
   
-    #<strong>available_time</strong>  &#x21d2; <tt>Integer</tt> 
+    #<strong>available_time</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -499,7 +664,119 @@ events from.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns minutes left over after non-available time deducted from day</p>
+<p>TODO: write specs</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 43</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_available_time'>available_time</span>
+  <span class='id identifier rubyid_minutes_in_day'>minutes_in_day</span> <span class='op'>-</span> <span class='id identifier rubyid_used_time'>used_time</span> 
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="available_time_slots-instance_method">
+  
+    #<strong>available_time_slots</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>TODO: finish writing specs TODO: write documentation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 83</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_available_time_slots'>available_time_slots</span>
+  <span class='id identifier rubyid_slots'>slots</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_prev_event'>prev_event</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Event.html" title="Event (class)">Event</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Event.html#initialize-instance_method" title="Event#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='int'>0</span><span class='comma'>,</span> <span class='int'>0</span><span class='rparen'>)</span> 
+  <span class='id identifier rubyid_end_of_day'>end_of_day</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Event.html" title="Event (class)">Event</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Event.html#initialize-instance_method" title="Event#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='int'>24</span><span class='comma'>,</span> <span class='int'>24</span><span class='rparen'>)</span>
+ 
+  <span class='kw'>until</span> <span class='id identifier rubyid_prev_event'>prev_event</span> <span class='op'>==</span> <span class='id identifier rubyid_end_of_day'>end_of_day</span>
+    <span class='id identifier rubyid_next_event'>next_event</span> <span class='op'>=</span> <span class='id identifier rubyid_event_after'>event_after</span><span class='lparen'>(</span><span class='id identifier rubyid_prev_event'>prev_event</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_possible_available_time_slot'>possible_available_time_slot</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Event.html" title="Event (class)">Event</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Event.html#initialize-instance_method" title="Event#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_prev_event'>prev_event</span><span class='period'>.</span><span class='id identifier rubyid_end_time'>end_time</span><span class='comma'>,</span> <span class='id identifier rubyid_next_event'>next_event</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_possible_available_time_slot'>possible_available_time_slot</span><span class='period'>.</span><span class='id identifier rubyid_duration'>duration</span><span class='period'>.</span><span class='id identifier rubyid_positive?'>positive?</span>
+      <span class='id identifier rubyid_slots'>slots</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_possible_available_time_slot'>possible_available_time_slot</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_prev_event'>prev_event</span> <span class='op'>=</span> <span class='id identifier rubyid_next_event'>next_event</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_slots'>slots</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="category_count-instance_method">
+  
+    #<strong>category_count</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns number of categories</p>
 
 
   </div>
@@ -518,7 +795,7 @@ events from.</p>
       
         &mdash;
         <div class='inline'>
-<p>minutes left over after non-available time deducted from day</p>
+<p>number of categories</p>
 </div>
       
     </li>
@@ -531,15 +808,80 @@ events from.</p>
       <pre class="lines">
 
 
-33
-34
-35</pre>
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 77</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_available_time'>available_time</span>
-  <span class='id identifier rubyid_minutes_in_day'>minutes_in_day</span> <span class='op'>-</span> <span class='id identifier rubyid_used_time'>used_time</span> 
+<span class='kw'>def</span> <span class='id identifier rubyid_category_count'>category_count</span>
+  <span class='ivar'>@categories</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="display-instance_method">
+  
+    #<strong>display</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>show events ordered by start_time</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 48</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_display'>display</span> 
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Categories</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>*</span> <span class='int'>20</span>
+  <span class='ivar'>@categories</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\nAvailability</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>*</span> <span class='int'>20</span>
+  <span class='comment'># TODO: create sort_by(&amp;:start_time) hethod (proc?)
+</span>  <span class='id identifier rubyid_available_time_slots'>available_time_slots</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Events</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span> <span class='op'>*</span> <span class='int'>20</span>
+  <span class='ivar'>@events</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_start_time'>start_time</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -590,16 +932,20 @@ events from.</p>
       <pre class="lines">
 
 
-28
-29
-30</pre>
+36
+37
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_event_count'>event_count</span>
   <span class='ivar'>@events</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
-<span class='kw'>end</span></pre>
+  <span class='comment'># TODO: change count to IDable module
+</span>  <span class='comment'># TODO: instead of keeping instances of IDable classes in the calendar, reference them from IDable&#39;s class all method
+</span><span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -649,15 +995,58 @@ events from.</p>
       <pre class="lines">
 
 
-23
-24
-25</pre>
+30
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_event'>find_event</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='ivar'>@events</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='id identifier rubyid_id'>id</span><span class='rbrace'>}</span>
+  <span class='comment'># TODO: pull into module (IDable#delete)
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove_category-instance_method">
+  
+    #<strong>remove_category</strong>(id)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>TODO: write documentation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+72
+73
+74</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 72</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remove_category'>remove_category</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='ivar'>@categories</span><span class='period'>.</span><span class='id identifier rubyid_reject!'>reject!</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='id identifier rubyid_id'>id</span><span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -708,56 +1097,15 @@ events from.</p>
       <pre class="lines">
 
 
-18
-19
-20</pre>
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_event'>remove_event</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='ivar'>@events</span><span class='period'>.</span><span class='id identifier rubyid_reject!'>reject!</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='id identifier rubyid_id'>id</span><span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="to_s-instance_method">
-  
-    #<strong>to_s</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>TODO: print by start_time</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-38
-39
-40</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/calendar.rb', line 38</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='ivar'>@events</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_e'>e</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_reallocate_times'>reallocate_times</span> <span class='kw'>if</span> <span class='ivar'>@events</span><span class='period'>.</span><span class='id identifier rubyid_reject!'>reject!</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='id identifier rubyid_id'>id</span><span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -769,7 +1117,7 @@ events from.</p>
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 29 14:26:55 2018 by
+  Generated on Wed Oct 31 13:28:41 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.16 (ruby-2.3.1).
 </div>

@@ -45,7 +45,7 @@ class Event
     event.start_time > start_time && event.start_time < end_time || event.end_time > start_time && event.start_time < end_time
   end
 
-  # TODO: write specs and documentation
+  # Checks to see if hours and time are equal
   def ==(other)
     start_time == other.start_time && end_time == other.end_time
   end
