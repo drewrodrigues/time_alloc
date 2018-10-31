@@ -19,10 +19,14 @@ module IDable
     @@instances << self
   end
 
+
   def assign_id 
     @id = IDable.assign_next_id
   end
 
+  # FIXME: make a class method
+  # FIXME: right now it adds all classes to the same instance
+  # returns all instances of the class   
   def self.all
     @@instances
   end

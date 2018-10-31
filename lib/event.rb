@@ -54,14 +54,22 @@ class Event
 
   def start_time=(start_time)
     raise ArgumentError, "Start time required" if start_time.nil?
-    hours, minutes = float_to_hours_and_minutes(start_time)
-    @start_time = Clock.new(hours, minutes) 
+    if start_time.is_a?(Clock)
+      @start_time = start_time
+    else
+      hours, minutes = float_to_hours_and_minutes(start_time) # TODO: add support for passing clock Object
+      @start_time = Clock.new(hours, minutes) 
+    end
   end
 
   def end_time=(end_time)
     raise ArgumentError, "End time required" if end_time.nil?
-    hours, minutes = float_to_hours_and_minutes(end_time)
-    @end_time = Clock.new(hours, minutes)
+    if end_time.is_a?(Clock)
+      @end_time = end_time
+    else
+      hours, minutes = float_to_hours_and_minutes(end_time)
+      @end_time = Clock.new(hours, minutes)
+    end
   end
 
   def title=(title)
@@ -70,7 +78,7 @@ class Event
   end
 
   def validate_times
-    raise ArgumentError, "Start time must be before end time" unless start_time < end_time
+    raise ArgumentError, "Start time must be before end time" unless start_time <= end_time
   end
 
   # converts float into whole number section for hour and decimal section for minutes

@@ -20,15 +20,10 @@ RSpec.describe Event do
       expect(event.title).to_not be nil
     end
 
-    it "validates start_time < end_time" do
+    # TODO: write spec that shoes == is okay
+    it "validates start_time <= end_time" do
       expect {
         Event.new(5, 2, "Something")
-      }.to raise_error ArgumentError, "Start time must be before end time"
-    end
-
-    it "validates start_time != end_time" do
-      expect {
-        Event.new(5, 5)
       }.to raise_error ArgumentError, "Start time must be before end time"
     end
 
@@ -91,6 +86,44 @@ RSpec.describe Event do
         other_event = Event.new(4, 5)
 
         expect(other_event.collides_with?(event)).to be true
+      end
+    end
+  end
+
+  describe "#==" do
+    context "when Events have the same start and end time" do
+      it "returns true" do
+        event = Event.new(1, 2)
+        equal_event = Event.new(1, 2)
+
+        expect(event).to eq(equal_event)
+      end
+    end
+
+    context "when Events have different start times" do
+      it "returns false" do
+        event = Event.new(1, 3)
+        different_event = Event.new(2, 3)
+
+        expect(event).to_not eq(different_event)
+      end
+    end
+
+    context "when Events have different end times" do
+      it "returns false" do
+        event = Event.new(1, 2)
+        different_event = Event.new(1, 3)
+
+        expect(event).to_not eq(different_event)
+      end
+    end
+
+    context "when Events have different start and end times" do
+      it "returns false" do
+        event = Event.new(0, 2)
+        different_event = Event.new(5, 8)
+
+        expect(event).to_not eq(different_event)
       end
     end
   end

@@ -32,6 +32,7 @@ class Clock
     Clock.new(new_time.hour, new_time.min)
   end
 
+  # compare time
   def <=>(other)
     @time <=> other.time 
   end

@@ -1,5 +1,6 @@
 require_relative "lib/calendar"
 require_relative "lib/event"
+require_relative "lib/category"
 
 class Main
   def initialize
@@ -20,6 +21,8 @@ class Main
       add_event
     when "2"
       remove_event
+    when "3"
+      add_category
     else
       puts "Bad input: press <enter> to continue"
       gets
@@ -56,12 +59,38 @@ class Main
   end
 
   def prompt
-    puts "\n\n"
-    puts "*" * 20
+    puts "\n"
     puts "<1> Add event"
     puts "<2> Delete event"
+    puts "<3> Add category"
     gets.chomp
+  end
+
+  def add_category
+    title = ""
+    while title.empty?
+      print "Category title: "
+      title = gets.chomp
+    end
+
+    percentage = 0.0
+    until percentage >= 0.01 && percentage <= 1.0 
+      print "Category percentage (ex: 0.5 = 50%):"
+      percentage = gets.chomp.to_f
+    end
+
+    category = Category.new(title, percentage)
+    @calendar.add_category(category)
+  end
+
+  def remove_category
+    print "ID of category: "
+    id = gets.chomp.to_i
+
+    @calendar.remove_category(id)
   end
 end
 
-Main.new
+if $PROGRAM_NAME == __FILE__
+  Main.new
+end
