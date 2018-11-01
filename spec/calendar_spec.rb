@@ -44,6 +44,7 @@ RSpec.describe Calendar do
   describe "#remove_event" do
     it "removes Event when present" do
       event = object_double('event', id: 1)
+      expect(event).to receive(:duration).and_return(60)
       @calendar.add_event(event)
 
       @calendar.remove_event(1)
@@ -53,6 +54,7 @@ RSpec.describe Calendar do
 
     it "returns truthy when Event deleted" do
       event = object_double('event', id: 1)
+      expect(event).to receive(:duration).and_return(60)
       @calendar.add_event(event)
 
       expect(@calendar.remove_event(1)).to be_truthy
@@ -67,6 +69,7 @@ RSpec.describe Calendar do
     context "when event exists" do
       it "returns the event" do
         event = object_double('event', id: 1)
+        expect(event).to receive(:duration).and_return(60)
         @calendar.add_event(event)
 
         expect(@calendar.find_event(1)).to eq(event) 
@@ -88,7 +91,9 @@ RSpec.describe Calendar do
     end
 
     it "returns the amount of events" do
-      @calendar.add_event(double('event'))
+      event = object_double('event', id: 1)
+      expect(event).to receive(:duration).and_return(60)
+      @calendar.add_event(event)
 
       expect(@calendar.event_count).to eq(1)
     end

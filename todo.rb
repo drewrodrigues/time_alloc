@@ -11,4 +11,5 @@ TODO: on Event (display duration of event) (show in Hours & minutes)
 TODO: show total available time
 TODO: raise errors on incorrect usage of methods, return false when used correctly but failed
 TODO: change Calendar to Schedule (calendar will hold [Day], and Day will hold [Schedule]
+TODO: stub out methods and objects better in calendar_spec.rb
 =end
