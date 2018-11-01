@@ -133,39 +133,6 @@ RSpec.describe Calendar do
     end
   end
 
-  describe "#add_category" do
-    context "when 1.0 in Categories" do
-      it "returns false" do
-        category = Category.new("Programming", 1.0)
-        @calendar.add_category(category)
-
-        overflow_category = Category.new("Workout", 0.2)
-        
-        expect(@calendar.add_category(category)).to be false
-      end
-    end
-
-    context "when categories sum <= 1.0" do
-      it "returns true" do
-        category = Category.new("Programming", 0.8)
-        @calendar.add_category(category)
-        another_category = Category.new("Workout", 0.2)
-        
-        expect(@calendar.add_category(another_category)).to be_truthy
-      end
-
-      it "increments category_count by 1" do
-        category = Category.new("Programming", 0.8)
-        @calendar.add_category(category)
-        another_category = Category.new("Workout", 0.2)
-        
-        expect {
-          @calendar.add_category(another_category)
-        }.to change(@calendar, :category_count).by(1)
-      end
-    end
-  end
-
   describe "#available_time_slots" do
     context "when no events" do
       it "returns the whole day" do
