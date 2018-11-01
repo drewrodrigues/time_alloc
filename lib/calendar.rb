@@ -61,23 +61,6 @@ class Calendar
     @events.sort_by {|e| e.start_time}.each {|e| puts e}
   end
 
-  # @param [Category] category to be added
-  def add_category(category)
-    return false unless can_add_category?(category)
-    @categories << category
-    reallocate_times
-  end
-
-  # TODO: write documentation
-  def remove_category(id)
-    @categories.reject! {|c| c.id == id}
-  end
-
-  # @return [Integer] number of categories
-  def category_count
-    @categories.count
-  end
-
   # TODO: finish writing specs
   # TODO: write documentation
   def available_time_slots
@@ -139,18 +122,5 @@ class Calendar
 
   def minutes_in_day
     24 * 60
-  end
-
-  # TODO
-  # make more clear whats happening (better variables)
-  def can_add_category?(category)
-    total_percent = @categories.inject(0) {|total, c| total + c.percentage}
-    total_percent + category.percentage <= 1.0
-  end
-
-  def reallocate_times
-    @categories.each do |c|
-      c.time_allocation = (available_time * c.percentage).to_i
-    end
   end
 end
