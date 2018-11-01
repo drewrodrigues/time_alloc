@@ -3,6 +3,7 @@
 # time to create more events from.
 
 # TODO: write automatic methods that reallocate_times and available_time slots on certain actions
+require_relative "generator"
 
 class Calendar
   attr_reader :events
@@ -10,7 +11,7 @@ class Calendar
   # setup events to hold
   def initialize
     @events = []
-    @categories = []
+    @generator = Generator.new(available_time)
   end
 
   # @param [Event] event to be added
@@ -18,12 +19,12 @@ class Calendar
   def add_event(event)
     return false unless can_add_event?(event)
     @events << event
-    reallocate_times # TODO: remove duplication
+    @generator.available_time = available_time
   end
 
   # @param [Integer] id of event to delete
   def remove_event(id)
-    reallocate_times if @events.reject! {|e| e.id == id}
+    @generator.available_time = available_time if @events.reject! {|e| e.id == id}
   end
 
   # @param [Integer] id of event to get
@@ -46,10 +47,6 @@ class Calendar
 
   # show events ordered by start_time
   def display 
-    puts "Categories"
-    puts "-" * 20
-    @categories.sort_by {|c| c.title}.each {|e| puts e}
-
     puts "\nAvailability"
     puts "-" * 20
     # TODO: create sort_by(&:start_time) hethod (proc?)
