@@ -9,4 +9,5 @@ TODO: reduce all classes <= 100 lines
 TODO: read up on when its good to raise_errors vs returning false/nil
 TODO: on Event (display duration of event) (show in Hours & minutes)
 TODO: show total available time
+TODO: raise errors on incorrect usage of methods, return false when used correctly but failed
 =end
