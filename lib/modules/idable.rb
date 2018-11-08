@@ -1,46 +1,54 @@
-# set a ID for a group
-# which are sequential
-# all starting from 0
-# assumes class has a id property
-
-# TODO: write documentation
-# TODO: cleanup class methods and instance methods with klass include?
+# Upon inclusion, IDable will allow basic class instance management as well
+# as assigning IDs for each new instance that is created.
 module IDable
-  attr_reader :id
+  attr_accessor :id
 
-  @@instances = []
-  @@next_id = @@instances.last ? @@instances.last.id + 1 : 0
+  # include class methods & set class instance variables
+  def self.included(klass)
+    klass.extend(ClassMethods)
+    klass.instance_variable_set(:@instances, [])
+    klass.instance_variable_set(:@next_id, 0)
+  end
 
-  # assigns next ID to class and adds instance to @@instances collection
+  # add self to class instances
   def initialize
-    # TODO: review how module intiailize method gets mixed in,
-    # what order are they called. Stack overflow said to call it from the class to get it called
-    assign_id
-    @@instances << self
+    self.class.add(self)
   end
 
+  module ClassMethods
+    # adds the instance to class instances
+    # @param instance of class
+    def add(instance)
+      instance.id = assign_next_id
+      all << instance
+    end
 
-  def assign_id 
-    @id = IDable.assign_next_id
+    # @return true or nil
+    def delete(id)
+      all.reject! {|i| i.id == id}
+    end
+
+    # @param [Integer] id of instance 
+    # @return first instance found with id
+    def find(id)
+      all.find {|i| i.id == id}
+    end
+
+    # @return [Integer] instance count
+    def count
+      all.count
+    end
+
+    # @return all instances of class
+    def all
+      @instances
+    end
+
+    # increments next_id and returns the previous available id
+    # @return [Integer] next available id
+    def assign_next_id
+      @next_id += 1
+      @next_id - 1
+    end
   end
-
-  # FIXME: make a class method
-  # FIXME: right now it adds all classes to the same instance
-  # returns all instances of the class   
-  def self.all
-    @@instances
-  end
-
-  # instances count
-  def count
-    @@instances.count
-  end
-
-  private
-
-  def self.assign_next_id # TODO: make class method upon including class
-    assigned_id = @@next_id
-    @@next_id += 1
-    assigned_id
-  end 
 end
