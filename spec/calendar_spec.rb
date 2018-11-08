@@ -113,7 +113,7 @@ RSpec.describe Calendar do
     context "when 8 hours in events" do
       it "returns 960" do
         # TODO: how to completely stub out Event
-        event = Event.new(1, 9, "Something", false)
+        event = Event.new(1, 9, "Something")
         @calendar.add_event(event)
 
         expect(@calendar.available_time).to eq(960)

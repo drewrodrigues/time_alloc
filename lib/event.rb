@@ -19,7 +19,7 @@ class Event
   # @param [Float] start_time event start time represented as a decimal
   # @param [Float] end_time event end time represented as a decimal
   # @param [String] title event title
-  def initialize(start_time, end_time, title="Undefined", available=true)
+  def initialize(start_time, end_time, title="Undefined")
     super()
     self.start_time = start_time
     self.end_time = end_time
