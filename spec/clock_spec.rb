@@ -18,7 +18,7 @@ RSpec.describe Clock do
     
     context "when combined minutes are 60 or over" do
       it "wraps the minutes" do
-        clock = Clock.new(6, 59)
+        clock = Clock.new(6.59)
 
         clock += 2
 
@@ -26,7 +26,7 @@ RSpec.describe Clock do
       end
 
       it "adds an hour" do
-        clock = Clock.new(6, 59)
+        clock = Clock.new(6.59)
 
         clock += 2
 
