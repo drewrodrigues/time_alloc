@@ -1,10 +1,10 @@
-require_relative "lib/calendar"
+require_relative "lib/schedule"
 require_relative "lib/event"
 require_relative "lib/category"
 
 class Main
   def initialize
-    @calendar = Calendar.new
+    @schedule = Schedule.new
     loop do
       run
     end
@@ -12,7 +12,16 @@ class Main
 
   def run
     system "clear"
-    @calendar.display
+    puts "Events"
+    puts "-" * 20
+    Event.display_all
+    puts ""
+
+    puts "Categories"
+    puts "-" * 20
+    Category.display_all
+    puts ""
+
     input = prompt 
     
     puts "\n\n"
@@ -23,6 +32,8 @@ class Main
       remove_event
     when "3"
       add_category
+    when "4"
+      generate
     else
       puts "Bad input: press <enter> to continue"
       gets
@@ -41,8 +52,7 @@ class Main
     title = gets.chomp
 
     begin
-      event = Event.new(start_time, end_time, title)
-      @calendar.add_event(event)
+      event = Event.create(start_time, end_time, title)
       puts "Event successfully added!"
       puts "Event couldn't be added"
     rescue ArgumentError => e # TODO: implement validation error, to specifically rescue those
@@ -55,7 +65,7 @@ class Main
     print "ID of event: "
     id = gets.chomp.to_i
 
-    @calendar.remove_event(id) # TODO: explicitly rescue validation errors
+    Event.delete(id)
   end
 
   def prompt
@@ -63,6 +73,7 @@ class Main
     puts "<1> Add event"
     puts "<2> Delete event"
     puts "<3> Add category"
+    puts "<4> Generate"
     gets.chomp
   end
 
@@ -80,14 +91,17 @@ class Main
     end
 
     category = Category.new(title, percentage)
-    @calendar.add_category(category)
+    category.save
   end
 
   def remove_category
     print "ID of category: "
     id = gets.chomp.to_i
 
-    @calendar.remove_category(id)
+    @schedule.remove_category(id)
+  end
+
+  def generate
   end
 end
 

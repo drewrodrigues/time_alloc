@@ -1,22 +1,32 @@
 require_relative "modules/idable"
+require_relative "schedule"
 
-# Categories will
+# TODO: write documentation
 class Category
   include IDable
 
-  attr_accessor :time_allocation
   attr_reader :title, :percentage
 
-  # create a category with a 'Undefined' title and 0.0 percentage
+  # create a Category with a 'Undefined' title and 0.0 percentage
   def initialize(title="Undefined", percentage=0.0)
-    super()
     self.title = title
     self.percentage = percentage
-    @time_allocation = 0
+  end
+
+  def save
+    Category.add(self)
   end
 
   def to_s
     "(#{id}) #{title}: #{(percentage*100).to_i}% [#{time_allocation} minutes]"
+  end
+
+  def time_allocation
+    Schedule.available_time * percentage
+  end
+
+  def self.display_all
+    Category.all.each {|c| puts c}
   end
 
   private

@@ -1,6 +1,6 @@
-require_relative "./modules/idable"
-require_relative "./clock"
-require "byebug"
+require_relative "clock"
+require_relative "event"
+require_relative "modules/idable"
 
 # Event has a start_time and end_time, title and tells
 # whether it's available time or not. (such as sleep)
@@ -27,6 +27,11 @@ class Event
     validate_times
   end
 
+  def self.create(start_time, end_time, title="Undefined")
+    event = Event.new(start_time, end_time, title)
+    event.save
+  end
+
   def save
     collides_with_any_event? ? false : Event.add(self)
   end
@@ -47,14 +52,29 @@ class Event
     start_time == other.start_time && end_time == other.end_time
   end
 
-  private
-
   def collides_with_any_event?
     Event.all.each do |other_event|
       return true if collides_with?(other_event)
     end
     false
   end
+
+  def next_event
+    Event.ordered_by_start.each do |e|
+      return e if e.start_time >= self.end_time
+    end
+    Event.new(24, 24)
+  end
+
+  def self.ordered_by_start
+    Event.all.sort_by {|e| e.start_time}
+  end
+
+  def self.display_all
+    Event.ordered_by_start.each {|e| puts e}
+  end
+
+  private
 
   def collides_with?(event)
     return true if self == event

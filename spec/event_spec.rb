@@ -1,17 +1,6 @@
 require_relative '../lib/event'
 
-class Event
-  def self.reset_instance_cache
-    @instances = []
-    @next_id = 0
-  end
-end
-
 RSpec.describe Event do
-  before do
-    Event.reset_instance_cache
-  end
-
   describe "validations" do
     it "requires start_time" do
       expect {

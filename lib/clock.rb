@@ -5,6 +5,7 @@
 # TODO: implement AM/PM view option
 # TODO: implement AM/PM input (parse the input differently if it has those arguments
 
+# TODO: write documentation
 class Clock
   include Comparable
 
