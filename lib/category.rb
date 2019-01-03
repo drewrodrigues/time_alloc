@@ -31,7 +31,7 @@ class Category
   end
 
   def to_s
-    "(#{id}) #{title}: #{(percentage * 100).to_i}% [#{used_time_allocation}/#{time_allocation} minutes]"
+    "(#{id}) #{title}: #{(percentage * 100).to_i}% [#{used_time_allocation.to_i}/#{time_allocation.to_i} minutes]"
   end
 
   def time_allocation

@@ -21,8 +21,12 @@ class Event
     event.save
   end
 
+  # TODO refactor the below search methods into IDable
+
   def self.ordered_by_start
-    Event.all.sort_by { |e| e.start_time }
+    Event.all.sort_by { |e| e.start_time } # Event.order_by(:start_time)
+    # Event.reject(<attribute>, :something)
+    # Event.select(<attribute>, :something)
   end
 
   def self.display_all
@@ -70,24 +74,9 @@ class Event
     collides_with_any_event? ? false : Event.add(self)
   end
 
-  # @return [Integer] the duration of event in minutes
-  def duration
-    end_time - start_time
-  end
-
-  def +(other)
-    duration + other.duration
-  end
-
   # @return [String] formatted Event in format: (id) <title>: <start_time>-<end_time>
   def to_s
     "(#{id}) #{title}        #{start_time}-#{end_time}           #{generated}"
-  end
-
-  # Checks to see if hours and time are equal
-  def ==(other)
-    return false unless other.is_a?(Event)
-    start_time == other.start_time && end_time == other.end_time
   end
 
   def collides_with_any_event?
@@ -107,31 +96,5 @@ class Event
   def title=(title)
     raise ArgumentError, "Title required" unless title.length > 0
     @title = title
-  end
-
-  private
-
-  # TODO pull out below into TimeRange
-  def collides_with?(event)
-    return true if self == event
-    event.start_time.between?(start_time, end_time) ||
-      event.end_time.between?(start_time, end_time)
-  end
-
-  def start_time=(start_time)
-    raise ArgumentError, "Start time required" if start_time.nil?
-    # TODO: pull out method below into a method
-    @start_time = (start_time.is_a?(Clock) ? start_time : Clock.new(start_time))
-  end
-
-  def end_time=(end_time)
-    raise ArgumentError, "End time required" if end_time.nil?
-    # TODO: pull out method below into a method
-    @end_time = (end_time.is_a?(Clock) ? end_time : Clock.new(end_time))
-  end
-
-  def validate_times
-    return if start_time.zeroed? || end_time.zeroed?
-    raise ArgumentError, "Start time must be before end time" unless start_time <= end_time
   end
 end
