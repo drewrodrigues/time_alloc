@@ -4,10 +4,11 @@
 
 # TODO: implement AM/PM view option
 # TODO: implement AM/PM input (parse the input differently if it has those arguments
-
 # TODO: write documentation
 class Clock
   include Comparable
+
+  attr_reader :time
 
   # Create a Time object at hours & minutes.
   # @param [Integer] hours amount of hours
@@ -30,6 +31,7 @@ class Clock
   # @param [Integer] mins minutes to add to Clock
   # @return [Clock] new Clock object with added minutes
   def +(mins)
+    mins = mins.to_i
     new_time = @time + minutes_to_seconds(mins % 60) + hours_to_seconds(mins / 60)
     Clock.new(clock_to_float(new_time))
   end
@@ -54,6 +56,11 @@ class Clock
     self > start_time && self < end_time
   end
 
+  # returns true whenever at 0:00
+  def zeroed?
+    hour.zero? && minutes.zero?
+  end
+
   private
 
   def minutes_to_seconds(mins)
@@ -74,7 +81,7 @@ class Clock
   def float_to_hours_and_minutes(float)
     # TODO: pull out to have Clock to support it
     hours = float.to_i
-    minutes = (float * 10 * 10 % 100).to_i
+    minutes = (float * 10 * 10 % 100).round.to_i # FIXME ugly (make implementation simpler)
     raise ArgumentError, 'Minutes must be between 0-59' unless (0..59).cover?(minutes)
     [hours, minutes]
   end
@@ -82,9 +89,4 @@ class Clock
   def clock_to_float(clock)
     clock.hour + clock.min * 0.01
   end
-
-  protected
-
-  attr_reader :time # TODO: review
 end
-

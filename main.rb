@@ -1,6 +1,7 @@
-require_relative "lib/schedule"
-require_relative "lib/event"
 require_relative "lib/category"
+require_relative "lib/event"
+require_relative "lib/generator"
+require_relative "lib/schedule"
 
 class Main
   def initialize
@@ -22,8 +23,8 @@ class Main
     Category.display_all
     puts ""
 
-    input = prompt 
-    
+    input = prompt
+
     puts "\n\n"
     case input
     when "1"
@@ -85,7 +86,7 @@ class Main
     end
 
     percentage = 0.0
-    until percentage >= 0.01 && percentage <= 1.0 
+    until percentage >= 0.01 && percentage <= 1.0
       print "Category percentage (ex: 0.5 = 50%):"
       percentage = gets.chomp.to_f
     end
@@ -102,6 +103,7 @@ class Main
   end
 
   def generate
+    Generator.generate
   end
 end
 

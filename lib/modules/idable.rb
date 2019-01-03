@@ -1,14 +1,15 @@
+# TODO create #create method
 # Upon inclusion, IDable will allow basic class instance management as well
 # as assigning IDs for each new instance that is created.
 module IDable
-  attr_accessor :id
-
   # include class methods & set class instance variables
   def self.included(klass)
     klass.extend(ClassMethods)
     klass.instance_variable_set(:@instances, [])
     klass.instance_variable_set(:@next_id, 0)
   end
+
+  attr_accessor :id
 
   # add self to class instances
   def initialize
@@ -28,7 +29,7 @@ module IDable
       all.reject! {|i| i.id == id}
     end
 
-    # @param [Integer] id of instance 
+    # @param [Integer] id of instance
     # @return first instance found with id
     def find(id)
       all.find {|i| i.id == id}
@@ -49,6 +50,12 @@ module IDable
     def assign_next_id
       @next_id += 1
       @next_id - 1
+    end
+
+    # TODO make a better solution, since this is only for testing
+    def reset_instance_cache
+      @instances = []
+      @next_id = 0
     end
   end
 end

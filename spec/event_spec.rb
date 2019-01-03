@@ -22,7 +22,7 @@ RSpec.describe Event do
 
     it "validates start_time <= end_time" do
       expect {
-        Event.new(5, 2, "Something")
+        Event.create(5, 2, "Something")
       }.to raise_error ArgumentError, "Start time must be before end time"
     end
 
@@ -45,7 +45,6 @@ RSpec.describe Event do
     context "when 10 minutes" do
       it "returns 10" do
         event = Event.new(4, 4.1)
-
         expect(event.duration).to eq(10)
       end
     end
@@ -131,4 +130,3 @@ RSpec.describe Event do
     end
   end
 end
-

@@ -2,11 +2,6 @@ require_relative "../../lib/modules/idable"
 
 class Mock
   include IDable
-
-  def self.reset_instance_cache
-    @instances = []
-    @next_id = 0
-  end
 end
 
 RSpec.describe IDable do
@@ -17,7 +12,7 @@ RSpec.describe IDable do
   it "adds id" do
     expect(Mock.new.respond_to?(:id)).to be true
   end
-  
+
   describe "#initialize" do
     it "assigns id to 1 less than length (starts at 0)" do
       mock = Mock.new
@@ -26,8 +21,8 @@ RSpec.describe IDable do
     end
 
     it "increments count by 1" do
-      expect do 
-        mock = Mock.new 
+      expect do
+        mock = Mock.new
       end.to change(Mock, :count).by(1)
     end
   end
@@ -113,7 +108,7 @@ RSpec.describe IDable do
         end
       end
     end
-    
+
     context "with instances from different classes" do
       it "only returns the instances from it's class" do
         mock = Mock.new
