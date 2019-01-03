@@ -15,7 +15,7 @@ class Generator
     # TODO refactor
 
     Category.all.each do |category|
-      until category.remaining_time_allocation.zero?
+      until category.remaining_time_allocation <= 1
         slot = Schedule.available_time_slots.first
         if slot.duration <= category.remaining_time_allocation
           slot = Event.new(slot.start_time, slot.end_time,
