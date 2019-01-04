@@ -26,6 +26,8 @@ class Event
   end
 
   def self.display_all
+    puts("ID".ljust(5) + "Title".ljust(20) + "Start - End  " + "Generated?".rjust(20))
+    puts "-" * 58
     Event.ordered_by_start.each {|e| puts e}
   end
 
@@ -49,7 +51,7 @@ class Event
 
   include IDable
 
-  attr_reader :start_time, :end_time, :title, :generated
+  attr_reader :start_time, :end_time, :title
 
   # Creates an Event.
   # @param [Float] start_time event start time represented as a decimal
@@ -81,7 +83,12 @@ class Event
 
   # @return [String] formatted Event in format: (id) <title>: <start_time>-<end_time>
   def to_s
-    "(#{id}) #{title}        #{start_time}-#{end_time}           #{generated}"
+    "##{id}".ljust(5) + title.ljust(20) + "#{start_time}".ljust(5) + " - " + "#{end_time}".ljust(5) +
+      generated.to_s.rjust(20)
+  end
+
+  def generated
+    @generated ? "Yes" : nil
   end
 
   # Checks to see if hours and time are equal

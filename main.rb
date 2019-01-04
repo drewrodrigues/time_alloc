@@ -14,12 +14,10 @@ class Main
   def run
     system "clear"
     puts "Events"
-    puts "-" * 20
     Event.display_all
     puts ""
 
     puts "Categories"
-    puts "-" * 20
     Category.display_all
     puts ""
 

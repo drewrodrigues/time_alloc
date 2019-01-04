@@ -6,6 +6,7 @@ require_relative 'schedule'
 # TODO: write documentation
 class Category
   def self.display_all
+    puts("ID".ljust(5) + "Title".ljust(20) + "Percentage".ljust(15) + "Used/Allocated".ljust(20))
     Category.all.each { |c| puts c }
   end
 
@@ -31,7 +32,9 @@ class Category
   end
 
   def to_s
-    "(#{id}) #{title}: #{(percentage * 100).to_i}% [#{used_time_allocation}/#{time_allocation} minutes]"
+    "##{id}".ljust(5) + title.ljust(20) +
+      "#{(percentage * 100).to_i}\%".ljust(15) +
+      "#{used_time_allocation.to_i}/#{time_allocation.to_i}".ljust(20)
   end
 
   def time_allocation
