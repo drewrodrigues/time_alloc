@@ -28,7 +28,7 @@ class Event
   def self.display_all
     puts("ID".ljust(5) + "Title".ljust(20) + "Start - End  " + "Generated?".rjust(20))
     puts "-" * 58
-    Event.ordered_by_start.each {|e| puts e}
+    Event.ordered_by_start.each { |e| puts e }
   end
 
   def self.non_generated
@@ -36,7 +36,6 @@ class Event
   end
 
   def self.generated
-    # TODO write spec for
     Event.all.select { |event| event.generated }
   end
 
@@ -45,26 +44,22 @@ class Event
   end
 
   def self.delete_generated
-    # TODO write spec for
     Event.generated.each { |event| Event.delete(event.id) }
   end
 
   include IDable
 
-  attr_reader :start_time, :end_time, :title
+  attr_reader :start_time, :end_time, :title, :generated
 
   # Creates an Event.
   # @param [Float] start_time event start time represented as a decimal
   # @param [Float] end_time event end time represented as a decimal
   # @param [String] title event title
   def initialize(start_time, end_time, title="Undefined", options = {})
-    default_options = { generated: false }
-    options = (options.empty? ? default_options : options)
-
     self.start_time = start_time
     self.end_time = end_time
     self.title = title
-    @generated = options[:generated] # TODO write spec for
+    self.generated = options[:generated] || false
   end
 
   def save
@@ -118,6 +113,8 @@ class Event
 
   private
 
+  attr_writer :generated
+
   # TODO pull out below into TimeRange
   def collides_with?(event)
     return true if self == event
@@ -139,6 +136,6 @@ class Event
 
   def validate_times
     return if start_time.zeroed? || end_time.zeroed?
-    raise ArgumentError, "Start time must be before end time" unless start_time <= end_time
+    raise ArgumentError, "Start time must be before end time" unless start_time < end_time
   end
 end
