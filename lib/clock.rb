@@ -5,14 +5,14 @@
 # TODO: implement AM/PM view option
 # TODO: implement AM/PM input (parse the input differently if it has those arguments
 # TODO: write documentation
+# TODO: remove support for float
 class Clock
   include Comparable
 
   attr_reader :time
 
   # Create a Time object at hours & minutes.
-  # @param [Integer] hours amount of hours
-  # @param [Integer] minutes amount of minutes
+  # @param [Float] time of Clock in format HH:MM
   def initialize(float)
     hours, minutes = float_to_hours_and_minutes(float)
     @time = Time.new(1, 1, 1, hours, minutes)
@@ -28,20 +28,21 @@ class Clock
     @time.min
   end
 
-  # @param [Integer] mins minutes to add to Clock
+  # @param [Integer] minutes to add to Clock
   # @return [Clock] new Clock object with added minutes
-  def +(mins)
-    mins = mins.to_i
-    new_time = @time + minutes_to_seconds(mins % 60) + hours_to_seconds(mins / 60)
+  def +(minutes)
+    minutes = minutes.to_i
+    new_time = @time + minutes_to_seconds(minutes % 60) + hours_to_seconds(minutes / 60)
     Clock.new(clock_to_float(new_time))
   end
 
+  # @param [Clock] other clock to compare against
   # compare time
   def <=>(other)
     @time <=> other.time
   end
 
-  # @param[Integer] other
+  # @param[Clock] other Clock
   # @return [Integer] minutes between self and other clock
   def -(other)
     ((@time - other.time) / 60).to_i
@@ -49,9 +50,13 @@ class Clock
 
   # @return [String] formatted time, HH:MM
   def to_s
-    "#{hour}:#{padded_minutes}"
+    "#{padded_hours}:#{padded_minutes}"
   end
 
+  # @param[Clock] start_time
+  # @param[Clock] end_time
+  # @return [Boolean] whether self is exclusively between start_time
+  # and end_time
   def between?(start_time, end_time)
     self > start_time && self < end_time
   end
@@ -75,7 +80,12 @@ class Clock
     minutes > 9 ? minutes : '0' + minutes.to_s
   end
 
-  # converts float into whole number section for hour and decimal section for minutes
+  def padded_hours
+    hour > 9 ? hour : '0' + hour.to_s
+  end
+
+  # converts float into whole number section for hour and decimal
+  # section for minutes
   # @param [Float] float to be converted into hours.minutes
   # @return [Array] hours and minutes
   def float_to_hours_and_minutes(float)
