@@ -1,16 +1,11 @@
-require_relative "lib/category"
-require_relative "lib/event"
-require_relative "lib/generator"
 require_relative "lib/schedule"
+require_relative "lib/prompts/event_prompt"
+require_relative "lib/prompts/generator_prompt"
+require_relative "lib/prompts/category_prompt"
 
 class Main
-  attr_reader :event_prompt, :category_prompt, :generator_prompt
-
   def initialize
     @schedule = Schedule.new
-    @event_prompt = EventPrompt.new(@schedule)
-    @category_prompt = CategoryPrompt.new(@schedule)
-    @generator_prompt = GeneratorPrompt.new(@schedule)
 
     loop do
       run
@@ -27,13 +22,12 @@ class Main
     Category.display_all
     puts ""
 
-    display_prompt
     select_model
   end
 
   private
 
-  def model_prompt 
+  def model_prompt
     puts "<1> Events"
     puts "<2> Categories"
     puts "<3> Generator"

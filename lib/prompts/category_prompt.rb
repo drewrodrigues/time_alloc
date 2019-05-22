@@ -1,13 +1,11 @@
-require_relative '../category'
+require_relative "../category"
 
 class CategoryPrompt < Prompt
-  private
-
-  def display_prompt
+  def self.display_prompt
     super("Category")
   end
 
-  def add
+  def self.add
     title = ""
     while title.empty?
       print "Category title: "
@@ -24,11 +22,12 @@ class CategoryPrompt < Prompt
     category.save
   end
 
-  def delete
+  def self.delete
     print "ID of category: "
     id = gets.chomp.to_i
 
-    schedule.remove_category(id)
+    Category.delete(id)
   end
-end
 
+  def self.edit; end
+end

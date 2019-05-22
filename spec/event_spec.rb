@@ -1,4 +1,4 @@
-require_relative '../lib/event'
+require_relative "../lib/event"
 
 RSpec.describe Event do
   let(:non_generated_event) do
@@ -18,7 +18,7 @@ RSpec.describe Event do
       second_event = Event.new(1, 2)
       first_event = Event.new(0, 1)
       third_event = Event.new(2, 3)
-      [second_event, first_event, third_event].each { |e| e.save }
+      [second_event, first_event, third_event].each(&:save)
       expect(Event.ordered_by_start).to eq([
         first_event, second_event, third_event
       ])
@@ -100,15 +100,15 @@ RSpec.describe Event do
 
   describe "validations" do
     it "requires start_time" do
-      expect {
+      expect do
         Event.new(nil, 5.45)
-      }.to raise_error ArgumentError, "Start time required"
+      end.to raise_error ArgumentError
     end
 
     it "requires end_time" do
-      expect {
+      expect do
         Event.new(5.45, nil)
-      }.to raise_error ArgumentError, "End time required"
+      end.to raise_error ArgumentError
     end
 
     it "title has a default" do
@@ -117,15 +117,15 @@ RSpec.describe Event do
     end
 
     it "validates start_time < end_time" do
-      expect {
+      expect do
         Event.create(5, 2, "Something")
-      }.to raise_error ArgumentError, "Start time must be before end time"
+      end.to raise_error ArgumentError
     end
 
     it "doesn't allow minutes over 59" do
-      expect {
+      expect do
         Event.new(5.1, 5.60)
-      }.to raise_error ArgumentError, "Minutes must be between 0-59"
+      end.to raise_error ArgumentError
     end
   end
 
@@ -146,7 +146,7 @@ RSpec.describe Event do
   end
 
   describe "#save" do
-    context "when start_time between another events start & end time" do
+    context "when start_time between other events start & end time" do
       it "returns false" do
         event = Event.new(4, 5)
         event.save

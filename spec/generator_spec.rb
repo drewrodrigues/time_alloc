@@ -4,15 +4,13 @@ require "generator"
 require "schedule"
 require "byebug"
 
-
-
 RSpec.describe Generator do
   before do
     Category.reset_instance_cache
   end
 
   describe "#generate" do
-    context "when Category's allocated time fits within the first available slot" do
+    context "when Category's allocated time fits in first time slot" do
       before do
         category = Category.new("Programming", 0.5)
         category.save
@@ -33,7 +31,7 @@ RSpec.describe Generator do
       end
     end
 
-    context "when Category's allocated time doesn't fit within the first available slot" do
+    context "when Category's allocated time doesn't fit in first time slot" do
       before do
         @category = Category.new("Programming", 0.5)
         @category.save
@@ -61,7 +59,9 @@ RSpec.describe Generator do
 
         Generator.generate
         [category_one, category_two].each do |category|
-          expect(category.used_time_allocation).to eq(category.time_allocation)
+          expect(
+            category.used_time_allocation
+          ).to eq(category.time_allocation)
         end
       end
     end

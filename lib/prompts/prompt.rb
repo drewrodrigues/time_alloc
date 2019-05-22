@@ -1,15 +1,9 @@
 # display_prompt is expected to be implement on each class
 class Prompt
-  self.abstract_class = true
-
   attr_reader :schedule
 
-  def initialize(schedule)
-    @schedule = schedule
-  end
-
   # @return [Boolean] true unless 4
-  def prompt
+  def self.prompt
     display_prompt
     case get_input
     when 1
@@ -27,17 +21,17 @@ class Prompt
     true
   end
 
-  private
-
-  def display_prompt(title = nil)
+  def self.display_prompt(title = nil)
+    puts "-" * 20
+    puts title
     puts "<1> Add"
     puts "<2> Delete"
     puts "<3> Edit" # TODO: implement on IDable?
     puts "<4> Exit"
   end
 
-  def get_input
+  def self.get_input
     print "<1-4>: "
-    gets
+    gets.chomp.to_i
   end
 end

@@ -139,7 +139,7 @@ RSpec.describe Clock do
 
     context "when start and end time equal" do
       it "returns false" do
-        expect(subject.between?(subject, subject)).to be false 
+        expect(subject.between?(subject, subject)).to be false
       end
     end
   end

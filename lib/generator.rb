@@ -10,7 +10,7 @@ class Generator
   # generates events of each category based upon remaining_time_allocation
   # @return [Integer] amount of events created
   def self.generate
-    self.clear_generated_events
+    clear_generated_events
     events_created = 0
     # TODO refactor
 

@@ -17,9 +17,9 @@ RSpec.describe Category do
       context "when length 0 or 21" do
         it "raises an error" do
           ["", "s" * 21].each do |invalid_title|
-            expect {
+            expect do
               Category.new(invalid_title, 0.5)
-            }.to raise_error ArgumentError
+            end.to raise_error ArgumentError
           end
         end
       end
@@ -28,17 +28,17 @@ RSpec.describe Category do
     describe "percentage" do
       context "when 0.0" do
         it "raises ArgumentError" do
-          expect {
+          expect do
             Category.new("Title", 0.0)
-          }.to raise_error ArgumentError
+          end.to raise_error ArgumentError
         end
       end
 
       context "when < 0.0" do
         it "raises ArgumentError" do
-          expect {
+          expect do
             Category.new("Title", -0.1)
-          }.to raise_error ArgumentError
+          end.to raise_error ArgumentError
         end
       end
 
@@ -50,9 +50,9 @@ RSpec.describe Category do
 
       context "when > 1.0" do
         it "raises ArgumentError" do
-          expect {
+          expect do
             Category.new("Title", 1.1)
-          }.to raise_error ArgumentError
+          end.to raise_error ArgumentError
         end
       end
 
@@ -66,7 +66,9 @@ RSpec.describe Category do
     end
 
     describe "#save" do
-      # TODO make sure it can be added, total percentages + this.percentage < 100%
+      # TODO make sure it can be added, total percentages +
+      # this.percentage
+      # < 100%
     end
   end
 
@@ -78,18 +80,18 @@ RSpec.describe Category do
     context "when no events created with Category" do
       it "returns amount of minutes allocated" do
         expect(@category.remaining_time_allocation).to eq(
-          Schedule.available_time * @category.percentage
+          Schedule.available_time * @category.percentage,
         )
       end
     end
 
     context "when events generated" do
-      it "returns the difference between time allocation and created events" do
+      it "returns difference between time allocation & events" do
         event = Event.new(0, 1, @category.title)
         event.save
-
         expect(event.duration).to eq(
-          @category.time_allocation - @category.remaining_time_allocation
+          @category.time_allocation -
+            @category.remaining_time_allocation
         )
       end
     end

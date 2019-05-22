@@ -26,13 +26,13 @@ module IDable
 
     # @return true or nil
     def delete(id)
-      all.reject! {|i| i.id == id}
+      all.reject! { |i| i.id == id }
     end
 
     # @param [Integer] id of instance
     # @return first instance found with id
     def find(id)
-      all.find {|i| i.id == id}
+      all.detect { |i| i.id == id }
     end
 
     # @return [Integer] instance count

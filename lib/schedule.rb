@@ -39,7 +39,7 @@ class Schedule
   end
 
   def self.used_time
-    Event.all.inject(0) { |total, e| total + e.duration }
+    Event.all.reduce(0) { |total, e| total + e.duration }
   end
 
   def self.minutes_in_day
@@ -47,6 +47,6 @@ class Schedule
   end
 
   def self.manual_events_used_time
-    Event.non_generated.inject(0) { |total, e| total + e.duration }
+    Event.non_generated.reduce(0) { |total, e| total + e.duration }
   end
 end
