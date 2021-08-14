@@ -1,3 +1,5 @@
 .byebug_history
 .swp
 *.swp
+.bundle
+vendor
